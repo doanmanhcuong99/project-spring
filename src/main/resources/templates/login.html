@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+<body>
+<h1>Login</h1>
+<div th:if="${param.error}">
+    Invalid username and password.
+</div>
+<div th:if="${param.logout}">
+    You have been logged out.
+</div>
+<form th:action="@{/accounts/login}" method="post">
+    <div><label> User Name : <input type="text" name="username"/> </label></div>
+    <div><label> Password: <input type="password" name="password"/> </label></div>
+    <div th:if="${session.containsKey('failureCount')} AND ${session.failureCount > 3}">
+        <div class="g-recaptcha" data-sitekey="6Lekn7kUAAAAALFDuxz3XXt6CY4tG6XcEUllKwT9"></div>
+    </div>
+    <div><input type="submit" value="Sign In"/></div>
+</form>
+</body>
+</html>
